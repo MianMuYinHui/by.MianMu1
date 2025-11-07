@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>by.眠目</title>
+  <style>
+    :root{
+      --bg: #f6f8ff;
+      --card-from: #fff7fb;
+      --card-to: #fffef9;
+      --accent: #ff6b93;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(180deg,var(--bg),#fff);
+      font-family: "PingFang SC", "Segoe UI", Roboto, "Noto Sans CJK SC", sans-serif;
+    }
+    .card{
+      width:340px;
+      padding:28px 22px;
+      border-radius:22px;
+      background:linear-gradient(135deg,var(--card-from),var(--card-to));
+      box-shadow:0 12px 30px rgba(99,88,255,0.08), 0 6px 12px rgba(0,0,0,0.04);
+      text-align:center;
+      transform-style:preserve-3d;
+    }
+    .date{
+      font-size:20px;
+      line-height:1.6;
+      color:#333;
+      white-space:pre-line; /* 保留换行 */
+      margin-bottom:8px;
+      font-weight:600;
+    }
+    .love{
+      font-size:16px;
+      color:var(--accent);
+      font-weight:700;
+      letter-spacing:1px;
+    }
+    .cute{
+      display:inline-block;
+      font-size:22px;
+      margin-left:8px;
+      transform:translateY(-2px);
+    }
+    footer{
+      margin-top:12px;
+      font-size:12px;
+      color:#999;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" role="region" aria-label="时间卡片">
+    <div id="date" class="date">正在加载时间…</div>
+    <div class="love">爱你宝宝<span class="cute">❤</span></div>
+  </div>
+
+  <script>
+    function zhWeekday(d){
+      const arr=['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+      return arr[d.getDay()];
+    }
+    function pad(n){return n<10?('0'+n):n}
+    function update(){
+      const now=new Date();
+      const m=now.getMonth()+1;
+      const d=now.getDate();
+      const w=zhWeekday(now);
+      const h=pad(now.getHours());
+      const min=pad(now.getMinutes());
+      const sec=pad(now.getSeconds());
+      const text=`今天是${m}月${d}日 ${w} ${h}:${min}:${sec}\n爱你宝宝`;
+      document.getElementById('date').textContent=text;
+    }
+    update();
+    setInterval(update, 1000);
+    document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) update(); });
+  </script>
+</body>
+</html>
